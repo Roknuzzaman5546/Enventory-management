@@ -24,6 +24,9 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('role.index')} active={route().current('role.index')}>
+                                    Role List
+                                </NavLink>
                             </div>
                         </div>
 
@@ -119,7 +122,11 @@ export default function Authenticated({ user, header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <div className=' max-w-[1280px] mx-auto md:px-12 px-5 pt-5'>
+                    {children}
+                </div>
+            </main>
         </div>
     );
 }

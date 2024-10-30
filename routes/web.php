@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/permission/index', [PermissitionController::class, 'index'])->name('role.index');
     Route::get('/permission/create', [PermissitionController::class, 'create'])->name('role.create');
-    Route::get('/permission/store', [PermissitionController::class, 'store'])->name('role.store');
+    Route::post('/permission/store', [PermissitionController::class, 'store'])->name('role.store');
 });
 
 require __DIR__ . '/auth.php';

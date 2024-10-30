@@ -10,7 +10,9 @@ use Spatie\Permission\Models\Permission;
 class PermissitionController extends Controller
 {
     public function index() {
-        return Inertia::render(('Role/List'));
+        $permission = Permission::orderBy('created_at', 'DESC')->paginate(10);  
+        // dd($permission);
+        return Inertia::render(('Role/List'), ['permission' => $permission]);
     }
     public function create()
     {
