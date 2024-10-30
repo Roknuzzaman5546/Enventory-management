@@ -1,11 +1,35 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import BlueButton from '@/Components/BlueButton';
 import SlateButton from '@/Components/SlateButton';
 
 const List = ({ auth, permission }) => {
   console.log(permission.data)
+
+  const handleDelete = (id) => {
+    destroy(route('role.destroy', id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "permission deleted successfully",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      },
+      onError: (errors) => {
+        console.log(errors);
+        Swal.fire({
+          title: 'Error!',
+          text: 'An error occurred while deleting the student.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      },
+    });
+  };
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -43,8 +67,8 @@ const List = ({ auth, permission }) => {
                     month: 'long',
                     day: 'numeric'
                   })}</td>
-                  <td className='px-1 py-3'><SlateButton>Edit</SlateButton></td>
-                  <td className='px-1 py-3'><SlateButton>Delete</SlateButton></td>
+                  <td className='px-1 py-3'><Link href={route('role.edit', item.id)}><SlateButton>Edit</SlateButton></Link></td>
+                  <td className='px-1 py-3' onClick={() => handleDelete(item.id)}><Link><SlateButton>Delete</SlateButton></Link> </td>
                   <td className='px-1 py-3'><SlateButton>View</SlateButton></td>
                 </tr>
               ))
