@@ -61,7 +61,11 @@ const RoleCreate = ({ auth }) => {
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
-                    <SlateButton />
+                    <SlateButton className=' mt-5'>
+                        Create
+                    </SlateButton>
+
+                    
                 </form>
             </div>
 

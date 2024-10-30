@@ -1,16 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
+use DB;
 
 class PermissitionController extends Controller
 {
     public function index() {
-        $permission = Permission::orderBy('created_at', 'DESC')->paginate(10);  
+        $permission = DB::table('permissions')->get();  
         // dd($permission);
         return Inertia::render(('Role/List'), ['permission' => $permission]);
     }
@@ -31,7 +30,12 @@ class PermissitionController extends Controller
             return redirect()->route('role.create')->withInput()->withErrors($validator);    
         }
     }
+    public function edit(string $id)
+    {
+        $permission = DB::table('permissions')->where('id', $id)->first();
+        // dd($permission);
+        return Inertia::render('Role/RoleEdit', ['dataStudents' => $permission]);
+    }
     public function update() {}
-    public function edit() {}
     public function destroy() {}
 }

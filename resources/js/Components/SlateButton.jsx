@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SlateButton = () => {
+const SlateButton = ({ children, className = '' }) => {
   return (
-      <button className=' bg-slate-800 px-4 py-2 rounded mt-5 text-white'>Create</button>
+    <button className={`bg-slate-800 px-4 py-2 rounded text-white` + className}>{children}</button>
   )
 }
 

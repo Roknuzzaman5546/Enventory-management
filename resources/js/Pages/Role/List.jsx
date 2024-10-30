@@ -17,7 +17,7 @@ const List = ({ auth, permission }) => {
           <BlueButton link={'role.create'} />
         </div>
       </div>
-      <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl'>
+      <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl mt-5'>
         <table className='w-full text-[#333333]'>
           <thead className=' bg-white'>
             <tr className='text-left p-4 justify-between ml-5'>
@@ -25,25 +25,30 @@ const List = ({ auth, permission }) => {
               <th className='px-3 py-4'>Name</th>
               <th className='px-3 py-4'>guard_name</th>
               <th className='px-3 py-4'>created_at</th>
-              <th className='px-3 py-4'>Edit</th>
-              <th className='px-3 py-4'>Delete</th>
-              <th className='px-3 py-4'>View</th>
+              <th className='px-1 py-4'>Edit</th>
+              <th className='px-1 py-4'>Delete</th>
+              <th className='px-1 py-4'>View</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {
-              permission?.data?.map((item) => (
+              permission?.map((item) => (
                 <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
                   <td className='px-3 py-4'>{item.id}</td>
                   <td className='px-3 py-4'>{item.name}</td>
                   <td className='px-3 py-4'>{item.guard_name}</td>
-                  <td className='px-3 py-4'>{item.created_at}</td>
-                  <td className='px-3 py-4'><SlateButton>Edit</SlateButton></td>
-                  <td className='px-3 py-4'><SlateButton>Delete</SlateButton></td>
-                  <td className='px-3 py-4'><SlateButton>View</SlateButton></td>
+                  <td className='px-3 py-4'>{new Date(item.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}</td>
+                  <td className='px-1 py-3'><SlateButton>Edit</SlateButton></td>
+                  <td className='px-1 py-3'><SlateButton>Delete</SlateButton></td>
+                  <td className='px-1 py-3'><SlateButton>View</SlateButton></td>
                 </tr>
               ))
+
             }
           </tbody>
         </table>
