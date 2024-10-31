@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/permission/edit/{id}', [PermissitionController::class, 'edit'])->name('role.edit');
     Route::post('/permission/update/{id}', [PermissitionController::class, 'update'])->name('role.update');
     Route::post('/permission/delete/{id}', [PermissitionController::class, 'destroy'])->name('role.destroy');
+    Route::post('/permission/view/{id}', [PermissitionController::class, 'view'])->name('role.view');
 });
 
 require __DIR__ . '/auth.php';

@@ -72,7 +72,7 @@ const List = ({ auth, permission }) => {
                   })}</td>
                   <td className='px-1 py-3'><Link href={route('role.edit', item.id)}><SlateButton>Edit</SlateButton></Link></td>
                   <td className='px-1 py-3' onClick={() => handleDelete(item.id)}><Link><SlateButton>Delete</SlateButton></Link> </td>
-                  <td className='px-1 py-3'><SlateButton>View</SlateButton></td>
+                  <td className='px-1 py-3'><SlateButton href={('role.view')}>View</SlateButton></td>
                 </tr>
               ))
 

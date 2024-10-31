@@ -42,7 +42,7 @@ const RoleCreate = ({ auth }) => {
         <AuthenticatedLayout
             user={auth.user}
         >
-            <Head title="Dashboard" />
+            <Head title="RoleCreate" />
             <div className=' text-xl font-bold'>RoleCreate route</div>
             <div className=' w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md'>
                 <h2 className=' text-lg font-semibold my-3 text-center'>Create Role</h2>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -40,7 +41,7 @@ class PermissitionController extends Controller
         // dd($permission);
         return Inertia::render('Role/RoleEdit', ['permission' => $permission]);
     }
-    
+
     public function update(Request $request, string $id)
     {
         // dd($request->all());
@@ -52,6 +53,12 @@ class PermissitionController extends Controller
         );
         DB::table('permissions')->where('id', $id)->update($data);
         return redirect()->route('role.index')->with('success', 'Permissions Updated successfully.');
+    }
+
+    public function view(string $id)
+    {
+        $permissionRoleData = DB::table('permissions')->where('id', $id)->first();
+        return Inertia::render('Role/RoleView', ['permissionRoleData' => $permissionRoleData]);
     }
 
     public function destroy(string $id)
