@@ -1,14 +1,17 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import BlueButton from '@/Components/BlueButton';
 import SlateButton from '@/Components/SlateButton';
+import Swal from 'sweetalert2';
 
 const List = ({ auth, permission }) => {
-  console.log(permission.data)
+  const { post } = useForm({
+  });
 
   const handleDelete = (id) => {
-    destroy(route('role.destroy', id), {
+    console.log("here id", id)
+    post(route('role.destroy', id), {
       preserveScroll: true,
       onSuccess: () => {
         Swal.fire({

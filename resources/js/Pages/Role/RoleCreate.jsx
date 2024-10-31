@@ -37,6 +37,7 @@ const RoleCreate = ({ auth }) => {
             },
         });
     };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -48,7 +49,6 @@ const RoleCreate = ({ auth }) => {
                 <form onSubmit={submit} >
                     <div>
                         <InputLabel htmlFor="name" value="Name" />
-
                         <TextInput
                             id="name"
                             name="name"
@@ -64,11 +64,8 @@ const RoleCreate = ({ auth }) => {
                     <SlateButton className=' mt-5'>
                         Create
                     </SlateButton>
-
-                    
                 </form>
             </div>
-
         </AuthenticatedLayout >
     )
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -41,6 +40,7 @@ class PermissitionController extends Controller
         // dd($permission);
         return Inertia::render('Role/RoleEdit', ['permission' => $permission]);
     }
+    
     public function update(Request $request, string $id)
     {
         // dd($request->all());
@@ -53,7 +53,10 @@ class PermissitionController extends Controller
         DB::table('permissions')->where('id', $id)->update($data);
         return redirect()->route('role.index')->with('success', 'Permissions Updated successfully.');
     }
-    public function destroy(string $id) {
+
+    public function destroy(string $id)
+    {
+        // dd($id);
         DB::table('permissions')->where('id', $id)->delete();
         return redirect()->route('role.index')->with('success', 'Permissions deleted successfully.');
     }

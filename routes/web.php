@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/permission/index', [PermissitionController::class, 'index'])->name('role.index');
     Route::get('/permission/edit/{id}', [PermissitionController::class, 'edit'])->name('role.edit');
     Route::post('/permission/update/{id}', [PermissitionController::class, 'update'])->name('role.update');
-    Route::post('/permission/update/{id}', [PermissitionController::class, 'distroy'])->name('role.distroy');
+    Route::post('/permission/delete/{id}', [PermissitionController::class, 'destroy'])->name('role.destroy');
 });
 
 require __DIR__ . '/auth.php';
