@@ -5,13 +5,10 @@ import React from 'react'
 const RoleView = ({ auth, permissionRoleData }) => {
     console.log(permissionRoleData)
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title="RoleCreate" />
             <div className=' text-xl font-bold'>RoleView route</div>
             <div>
-                
             </div>
         </AuthenticatedLayout >
     )
