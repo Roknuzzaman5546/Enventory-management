@@ -14,12 +14,12 @@ class PermissitionController extends Controller
     {
         $permission = DB::table('permissions')->get();
         // dd($permission);
-        return Inertia::render(('Role/List'), ['permission' => $permission]);
+        return Inertia::render(('Permission/List'), ['permission' => $permission]);
     }
 
     public function create()
     {
-        return Inertia::render('Role/RoleCreate');
+        return Inertia::render('Permission/PermissionCreate');
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class PermissitionController extends Controller
     {
         $permission = DB::table('permissions')->where('id', $id)->first();
         // dd($permission);
-        return Inertia::render('Role/RoleEdit', ['permission' => $permission]);
+        return Inertia::render('Permission/PermissionEdit', ['permission' => $permission]);
     }
 
     public function update(Request $request, string $id)
@@ -58,7 +58,7 @@ class PermissitionController extends Controller
     public function view(string $id)
     {
         $permissionRoleData = DB::table('permissions')->where('id', $id)->first();
-        return Inertia::render('Role/RoleView', ['permissionRoleData' => $permissionRoleData]);
+        return Inertia::render('Permission/PermissionView', ['permissionRoleData' => $permissionRoleData]);
     }
 
     public function destroy(string $id)

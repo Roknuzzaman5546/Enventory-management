@@ -6,7 +6,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react'
 import React from 'react'
 import Swal from 'sweetalert2';
-const RoleEdit = ({ auth, permission }) => {
+
+const PermissionEdit = ({ auth, permission }) => {
     console.log(permission.name)
     const { data, setData, post, processing, errors, reset, } = useForm({
         name: permission.name
@@ -42,7 +43,7 @@ const RoleEdit = ({ auth, permission }) => {
             user={auth.user}
         >
             <Head title="Dashboard" />
-            <div className=' text-xl font-bold'>RoleEdit route</div>
+            <div className=' text-xl font-bold'>PermissionEdit route</div>
             <div className=' w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md'>
                 <h2 className=' text-lg font-semibold my-3 text-center'>Edit Role</h2>
                 <form onSubmit={submit} >
@@ -77,4 +78,4 @@ const RoleEdit = ({ auth, permission }) => {
 }
 
 
-export default RoleEdit
+export default PermissionEdit

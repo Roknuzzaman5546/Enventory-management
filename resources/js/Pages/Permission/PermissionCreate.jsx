@@ -7,7 +7,7 @@ import { Head, useForm } from '@inertiajs/react'
 import React from 'react'
 import Swal from 'sweetalert2';
 
-const RoleCreate = ({ auth }) => {
+const PermissionCreate = ({ auth }) => {
     const { data, setData, post, processing, errors, reset, } = useForm({
         name: ''
     });
@@ -42,8 +42,8 @@ const RoleCreate = ({ auth }) => {
         <AuthenticatedLayout
             user={auth.user}
         >
-            <Head title="RoleCreate" />
-            <div className=' text-xl font-bold'>RoleCreate route</div>
+            <Head title="PermissionCreate" />
+            <div className=' text-xl font-bold'>PermissionCreate route</div>
             <div className=' w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md'>
                 <h2 className=' text-lg font-semibold my-3 text-center'>Create Role</h2>
                 <form onSubmit={submit} >
@@ -70,4 +70,4 @@ const RoleCreate = ({ auth }) => {
     )
 }
 
-export default RoleCreate
+export default PermissionCreate
