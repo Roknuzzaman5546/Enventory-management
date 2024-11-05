@@ -29,9 +29,9 @@ class PermissitionController extends Controller
         ]);
         if ($validator->passes()) {
             Permission::create(['name' => $request->name]);
-            return redirect()->route('role.index')->with('success', 'Permissions added successfully.');
+            return redirect()->route('permission.index')->with('success', 'Permissions added successfully.');
         } else {
-            return redirect()->route('role.create')->withInput()->withErrors($validator);
+            return redirect()->route('permission.create')->withInput()->withErrors($validator);
         }
     }
 
@@ -52,7 +52,7 @@ class PermissitionController extends Controller
             'name' => $request->name,
         );
         DB::table('permissions')->where('id', $id)->update($data);
-        return redirect()->route('role.index')->with('success', 'Permissions Updated successfully.');
+        return redirect()->route('permission.index')->with('success', 'Permissions Updated successfully.');
     }
 
     public function view(string $id)
@@ -65,6 +65,6 @@ class PermissitionController extends Controller
     {
         // dd($id);
         DB::table('permissions')->where('id', $id)->delete();
-        return redirect()->route('role.index')->with('success', 'Permissions deleted successfully.');
+        return redirect()->route('permission.index')->with('success', 'Permissions deleted successfully.');
     }
 }

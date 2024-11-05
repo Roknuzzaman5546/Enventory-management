@@ -14,7 +14,7 @@ const PermissionCreate = ({ auth }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('role.store'), {
+        post(route('permission.store'), {
             onSuccess: () => {
                 Swal.fire({
                     position: "top-end",
@@ -45,7 +45,7 @@ const PermissionCreate = ({ auth }) => {
             <Head title="PermissionCreate" />
             <div className=' text-xl font-bold'>PermissionCreate route</div>
             <div className=' w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md'>
-                <h2 className=' text-lg font-semibold my-3 text-center'>Create Role</h2>
+                <h2 className=' text-lg font-semibold my-3 text-center'>Create Permission</h2>
                 <form onSubmit={submit} >
                     <div>
                         <InputLabel htmlFor="name" value="Name" />

@@ -1,10 +1,9 @@
 import { Link } from '@inertiajs/react'
-import React from 'react'
 
-const BlueButton = ({ link }) => {
+const BlueButton = ({ link, children }) => {
     return (
         <div>
-            <Link href={route(link)} className="bg-blue-500 p-3 rounded">Role</Link>
+            <Link href={route(link)} className="bg-blue-500 p-3 rounded">{children}</Link>
         </div>
     )
 }

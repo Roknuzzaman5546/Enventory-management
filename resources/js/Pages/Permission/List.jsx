@@ -11,7 +11,7 @@ const List = ({ auth, permission }) => {
 
   const handleDelete = (id) => {
     console.log("here id", id)
-    post(route('role.destroy', id), {
+    post(route('permission.destroy', id), {
       preserveScroll: true,
       onSuccess: () => {
         Swal.fire({
@@ -41,7 +41,9 @@ const List = ({ auth, permission }) => {
       <div className=' flex justify-between items-center'>
         <div className=' text-xl font-bold'>Role List route</div>
         <div>
-          <BlueButton link={'role.create'} />
+          <BlueButton link={'permission.create'}>
+            Permissition
+          </BlueButton>
         </div>
       </div>
       <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl mt-5'>
@@ -70,9 +72,9 @@ const List = ({ auth, permission }) => {
                     month: 'long',
                     day: 'numeric'
                   })}</td>
-                  <td className='px-1 py-3'><Link href={route('role.edit', item.id)}><SlateButton>Edit</SlateButton></Link></td>
+                  <td className='px-1 py-3'><Link href={route('permission.edit', item.id)}><SlateButton>Edit</SlateButton></Link></td>
                   <td className='px-1 py-3' onClick={() => handleDelete(item.id)}><Link><SlateButton>Delete</SlateButton></Link> </td>
-                  <td className='px-1 py-3'><SlateButton href={('role.view')}>View</SlateButton></td>
+                  <td className='px-1 py-3'><SlateButton href={('permission.view')}>View</SlateButton></td>
                 </tr>
               ))
 

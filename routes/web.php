@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermissitionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,13 +36,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/permission/create', [PermissitionController::class, 'create'])->name('role.create');
-    Route::post('/permission/store', [PermissitionController::class, 'store'])->name('role.store');
-    Route::get('/permission/index', [PermissitionController::class, 'index'])->name('role.index');
-    Route::get('/permission/edit/{id}', [PermissitionController::class, 'edit'])->name('role.edit');
-    Route::post('/permission/update/{id}', [PermissitionController::class, 'update'])->name('role.update');
-    Route::post('/permission/delete/{id}', [PermissitionController::class, 'destroy'])->name('role.destroy');
-    Route::post('/permission/view/{id}', [PermissitionController::class, 'view'])->name('role.view');
+    // permission routes
+    Route::get('/permission/create', [PermissitionController::class, 'create'])->name('permission.create');
+    Route::post('/permission/store', [PermissitionController::class, 'store'])->name('permission.store');
+    Route::get('/permission/index', [PermissitionController::class, 'index'])->name('permission.index');
+    Route::get('/permission/edit/{id}', [PermissitionController::class, 'edit'])->name('permission.edit');
+    Route::post('/permission/update/{id}', [PermissitionController::class, 'update'])->name('permission.update');
+    Route::post('/permission/delete/{id}', [PermissitionController::class, 'destroy'])->name('permission.destroy');
+    Route::post('/permission/view/{id}', [PermissitionController::class, 'view'])->name('permission.view');
+
+    // Roles routes
+    Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('role/index', [RoleController::class, 'index'])->name('role.index');
 });
 
 require __DIR__ . '/auth.php';

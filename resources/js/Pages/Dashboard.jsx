@@ -15,7 +15,14 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between items-center px-5">
                         <div className="p-6 text-gray-900">You're logged in!</div>
                         <div>
-                            <BlueButton link={'role.create'} />
+                            <BlueButton link={'permission.create'}>
+                                Permission
+                            </BlueButton>
+                        </div>
+                        <div>
+                            <BlueButton link={'role.create'}>
+                                Role
+                            </BlueButton>
                         </div>
                     </div>
                 </div>
