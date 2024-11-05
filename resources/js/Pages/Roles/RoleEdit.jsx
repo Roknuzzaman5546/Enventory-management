@@ -3,15 +3,16 @@ import InputLabel from '@/Components/InputLabel';
 import SlateButton from '@/Components/SlateButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
+import { Head, useForm } from '@inertiajs/react'
+import React from 'react'
 import Swal from 'sweetalert2';
 
-const RoleCreate = ({ auth, permissition }) => {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+const RoleEdit = ({ auth, permissions, hasPermissions, role }) => {
+    const { data, setData, post, processing, errors, reset, } = useForm({
+        name: role.name,
         permissions: [] 
     });
+    console.log(permissions, hasPermissions)
 
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
@@ -26,77 +27,80 @@ const RoleCreate = ({ auth, permissition }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('role.store'), {
+        post(route('role.update', role.id), {
             onSuccess: () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Your Role is created Successfully",
+                    title: "Your Role is update Successfully",
                     showConfirmButton: false,
                     timer: 2000
                 });
-                reset(); // Optional: reset the form on success
             },
             onError: (errors) => {
-                console.log(errors);
+                console.log(errors)
                 if (errors) {
                     Swal.fire({
                         title: 'Error!',
                         text: errors.name ? errors.name : errors.email,
                         icon: 'error',
                         confirmButtonText: 'Cool'
-                    });
+                    })
                 }
             },
         });
     };
 
     return (
-        <AuthenticatedLayout user={auth.user}>
-            <Head title="RoleCreate" />
-            <div className="text-xl font-bold">RoleCreate route</div>
-            <div className="w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md">
-                <h2 className="text-lg font-semibold my-3 text-center">Create Role</h2>
-                <form onSubmit={submit}>
+        <AuthenticatedLayout
+            user={auth.user}
+        >
+            <Head title="Dashboard" />
+            <div className=' text-xl font-bold'>RoleEdit route</div>
+            <div className=' w-[50%] mx-auto mt-8 bg-slate-300 py-6 px-12 rounded-md'>
+                <h2 className=' text-lg font-semibold my-3 text-center'>Edit Role</h2>
+                <form onSubmit={submit} >
                     <div>
                         <InputLabel htmlFor="name" value="Name" />
                         <TextInput
                             id="name"
                             name="name"
-                            value={data.name}
+                            defaultValue={permissions.name}  // Set the initial default value
                             className="mt-1 block w-full"
                             autoComplete="name"
                             isFocused={true}
-                            onChange={(e) => setData('name', e.target.value)}
+                            onChange={(e) => setData('name', e.target.value)}  // Handle change
                             required
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div className="flex justify-between items-center mt-3">
-                        {permissition.map((item) => (
-                            <div key={item.id} className="flex items-center gap-1">
+                        {hasPermissions.map((item) => (
+                            <div key={item} className="flex items-center gap-1">
                                 <input
                                     type="checkbox"
                                     className="rounded-md cursor-pointer"
                                     name="permissions"
-                                    id={item.id}
-                                    value={item.name}
-                                    checked={data.permissions.includes(item.name)}
+                                    id={item}
+                                    value={item}
+                                    checked={data.permissions.includes(item)}
                                     onChange={handleCheckboxChange}
                                 />
-                                <label htmlFor={item.id}>{item.name}</label>
+                                <label htmlFor={item}>{item}</label>
                             </div>
                         ))}
                     </div>
                     <div className="mt-5">
                         <SlateButton>
-                            Create
+                            Update
                         </SlateButton>
                     </div>
                 </form>
             </div>
-        </AuthenticatedLayout>
-    );
-};
 
-export default RoleCreate;
+        </AuthenticatedLayout >
+    )
+}
+
+
+export default RoleEdit

@@ -7,12 +7,18 @@ use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use DB;
 
 class RoleController extends Controller
 
 {
     //
-    public function index() {}
+    public function index()
+    {
+        $role = DB::table('roles')->get();  
+        // dd($role);
+        return Inertia::render(('Roles/RoleList'), ['role' => $role]);
+    }
 
     // create data
     public function create()
@@ -30,10 +36,25 @@ class RoleController extends Controller
         ]);
         if ($validator->passes()) {
             // dd($request->permissions);
-            Role::create(['name' => $request->name]);
-            return redirect()->route('permission.index')->with('success', 'Permissions added successfully.');
+            $role = Role::create(['name' => $request->name]);
+            if (!empty($request->permissions)) {
+                foreach ($request->permissions as $name) {
+                    $role->givePermissionTo($name);
+                }
+            }
+            return redirect()->route('role.index')->with('success', 'Permissions added successfully.');
         } else {
-            return redirect()->route('permission.create')->withInput()->withErrors($validator);
+            return redirect()->route('role.create')->withInput()->withErrors($validator);
         }
+    }
+
+    // edit data
+    public function edit(string $id)
+    {
+        $role = Role::findOrFail($id);
+        $hasPermission = $role->permissions->pluck('name');
+        $permissions = Permission::orderBy('name', 'ASC')->get();
+        // dd($hasPermission);
+        return Inertia::render('Roles/RoleEdit', ['permissions' => $permissions, 'hasPermissions' => $hasPermission, 'role' =>$role]);
     }
 }

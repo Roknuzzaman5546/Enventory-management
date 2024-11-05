@@ -77,7 +77,6 @@ const List = ({ auth, permission }) => {
                   <td className='px-1 py-3'><SlateButton href={('permission.view')}>View</SlateButton></td>
                 </tr>
               ))
-
             }
           </tbody>
         </table>
