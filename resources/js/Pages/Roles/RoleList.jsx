@@ -34,6 +34,7 @@ const RoleList = ({ auth, role }) => {
             },
         });
     };
+    
     return (
         <AuthenticatedLayout
             user={auth.user}

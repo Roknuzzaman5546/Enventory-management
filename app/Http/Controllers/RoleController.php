@@ -53,30 +53,27 @@ class RoleController extends Controller
         $hasPermission = $role->permissions->pluck('name');
         $permissions = Permission::orderBy('name', 'ASC')->get();
         // dd($hasPermission);
-        return Inertia::render('Roles/RoleEdit', ['permissions' => $permissions, 'hasPermissions' => $hasPermission, 'role' =>$role]);
+        return Inertia::render('Roles/RoleEdit', ['permissions' => $permissions, 'hasPermissions' => $hasPermission, 'role' => $role]);
     }
-    
+
     public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id . '|min:3', // Ensure uniqueness except for the current role
             'permissions' => 'array', // Ensure permissions is an array if you're passing it
         ]);
-
         // Retrieve the role by ID
         $role = Role::findOrFail($id);
-
         // Update the role name
         $role->name = $request->name;
         $role->save();
-
         // Sync the permissions
         if ($request->has('permissions')) {
             $role->syncPermissions($request->permissions);
         }
-
         return redirect()->route('role.index')->with('success', 'Role updated successfully.');
     }
 
-    
+    public function destroy(string $id) {
+    }
 }
