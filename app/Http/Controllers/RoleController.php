@@ -15,9 +15,7 @@ class RoleController extends Controller
     //
     public function index()
     {
-        $role = DB::table('roles')->get();
-        $hasPermission = $role->permissions->pluck('name');
-        dd($hasPermission);
+        $role = Role::with('permissions')->get();
         return Inertia::render(('Roles/RoleList'), ['role' => $role]);
     }
 
@@ -25,7 +23,6 @@ class RoleController extends Controller
     public function create()
     {
         $permissition = Permission::orderBy('name', 'ASC')->get();
-        // dd($permissition);
         return Inertia::render('Roles/RoleCreate', ['permissition' => $permissition]);
     }
 
@@ -58,17 +55,28 @@ class RoleController extends Controller
         // dd($hasPermission);
         return Inertia::render('Roles/RoleEdit', ['permissions' => $permissions, 'hasPermissions' => $hasPermission, 'role' =>$role]);
     }
-
-    public function update(Request $request, string $id){
-        // dd($request->all());
+    
+    public function update(Request $request, string $id)
+    {
         $request->validate([
-            'name' => 'required|unique:permissions|min:3',
+            'name' => 'required|unique:roles,name,' . $id . '|min:3', // Ensure uniqueness except for the current role
+            'permissions' => 'array', // Ensure permissions is an array if you're passing it
         ]);
-        $data = array(
-            'name' => $request->name,
-        );
-        DB::table('roles')->where('id', $id)->update($data);
-        return redirect()->route('role.index')->with('success', 'Role Updated successfully.');
+
+        // Retrieve the role by ID
+        $role = Role::findOrFail($id);
+
+        // Update the role name
+        $role->name = $request->name;
+        $role->save();
+
+        // Sync the permissions
+        if ($request->has('permissions')) {
+            $role->syncPermissions($request->permissions);
+        }
+
+        return redirect()->route('role.index')->with('success', 'Role updated successfully.');
     }
+
     
 }

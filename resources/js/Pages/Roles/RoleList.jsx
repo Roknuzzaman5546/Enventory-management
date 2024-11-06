@@ -6,6 +6,7 @@ import SlateButton from '@/Components/SlateButton';
 import Swal from 'sweetalert2';
 
 const RoleList = ({ auth, role }) => {
+
     const { post } = useForm({
     });
 
@@ -66,7 +67,7 @@ const RoleList = ({ auth, role }) => {
                                 <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
                                     <td className='px-3 py-4'>{item.id}</td>
                                     <td className='px-3 py-4'>{item.name}</td>
-                                    <td className='px-3 py-4'>{item.permissions}</td>
+                                    <td className='px-3 py-4'>{item?.permissions?.map((permission) => <div key={permission.id}>{`${permission.name},`}</div>)}</td>
                                     <td className='px-3 py-4'>{new Date(item.created_at).toLocaleDateString('en-US', {
                                         year: 'numeric',
                                         month: 'long',

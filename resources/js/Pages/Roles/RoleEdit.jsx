@@ -21,7 +21,7 @@ const RoleEdit = ({ auth, permissions, hasPermissions, role }) => {
             setData('permissions', [...data.permissions, value]);
         } else {
             // Remove the permission from the array if unchecked
-            setData('permissions', data.permissions.filter(permission => permission !== value));
+            setData('permissions', data.permissions.filter((permission) => permission !== value));
         }
     };
 
