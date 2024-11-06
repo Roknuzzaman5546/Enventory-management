@@ -15,8 +15,9 @@ class RoleController extends Controller
     //
     public function index()
     {
-        $role = DB::table('roles')->get();  
-        // dd($role);
+        $role = DB::table('roles')->get();
+        $hasPermission = $role->permissions->pluck('name');
+        dd($hasPermission);
         return Inertia::render(('Roles/RoleList'), ['role' => $role]);
     }
 
@@ -57,4 +58,17 @@ class RoleController extends Controller
         // dd($hasPermission);
         return Inertia::render('Roles/RoleEdit', ['permissions' => $permissions, 'hasPermissions' => $hasPermission, 'role' =>$role]);
     }
+
+    public function update(Request $request, string $id){
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required|unique:permissions|min:3',
+        ]);
+        $data = array(
+            'name' => $request->name,
+        );
+        DB::table('roles')->where('id', $id)->update($data);
+        return redirect()->route('role.index')->with('success', 'Role Updated successfully.');
+    }
+    
 }

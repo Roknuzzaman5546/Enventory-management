@@ -42,7 +42,7 @@ const RoleList = ({ auth, role }) => {
                 <div className=' text-xl font-bold'>RoleList route</div>
                 <div>
                     <BlueButton link={'role.create'}>
-                        Permissition
+                        Role
                     </BlueButton>
                 </div>
             </div>
