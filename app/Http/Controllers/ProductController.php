@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use DB;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $products = DB::table('products')->get();
+        // dd($permission);
+        return Inertia::render(('Product/ProductList'), ['products' => $products]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +31,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'quantity' => 'required',
+            'status' => 'required',
+        ]);
+        $data = array(
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'status' => $request->status
+        );
+        DB::table('products')->insert($data);
+        return redirect()->route('product.index')->with('success', 'Permissions Updated successfully.');
     }
 
     /**

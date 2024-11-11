@@ -11,7 +11,8 @@ import InputError from '@/Components/InputError';
 const ProductCreate = ({ auth }) => {
     const { data, setData, post, processing, errors, reset, } = useForm({
         name: '',
-        details: ''
+        quantity: '',
+        status: 'pending'
     });
 
     const submit = (e) => {
@@ -72,19 +73,20 @@ const ProductCreate = ({ auth }) => {
                         <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div className='mt-4'>
-                        <InputLabel htmlFor="details" value="Product Details" />
+                        <InputLabel htmlFor="quantity" value="Product Quantity*" />
                         <TextInput
-                            id="details"
-                            name="name"
-                            value={data.details}
-                            placeholder={'add your product details'}
+                            id="quantity"
+                            name="quantity"
+                            value={data.quantity}
+                            placeholder={'Product quantity'}
+                            type="number"
                             className="mt-1 block w-full"
-                            autoComplete="details"
+                            autoComplete="quantity"
                             isFocused={true}
-                            onChange={(e) => setData('details', e.target.value)}
+                            onChange={(e) => setData('quantity', e.target.value)}
                             required
                         />
-                        <InputError message={errors.details} className="mt-2" />
+                        <InputError message={errors.quantity} className="mt-2" />
                     </div>
                     <SlateButton className=' mt-5'>
                         Add
