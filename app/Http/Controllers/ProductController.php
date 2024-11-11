@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use DB;
@@ -64,9 +65,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        
+        $product = Product::findOrFail($id);
+        $product->status = $request->status;
+        $product->save();
+        return redirect()->back();
     }
 
     /**
