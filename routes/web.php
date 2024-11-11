@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('role/index', [RoleController::class, 'index'])->name('role.index');
     Route::get('role/{id}/edit', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('role/{id}/update', [RoleController::class, 'update'])->name('role.update');
-    Route::post('role/{id}/update', [RoleController::class, 'destroy'])->name('role.destroy');
+    Route::post('role/{id}/destroy', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 
 require __DIR__ . '/auth.php';

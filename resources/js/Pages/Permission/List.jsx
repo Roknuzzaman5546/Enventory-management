@@ -39,7 +39,7 @@ const List = ({ auth, permission }) => {
     >
       <Head title="Dashboard" />
       <div className=' flex justify-between items-center'>
-        <div className=' text-xl font-bold'>Role List route</div>
+        <div className=' text-xl font-bold'>Permission List route</div>
         <div>
           <BlueButton link={'permission.create'}>
             Permissition

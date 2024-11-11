@@ -58,6 +58,7 @@ class RoleController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $request->all();
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id . '|min:3', // Ensure uniqueness except for the current role
             'permissions' => 'array', // Ensure permissions is an array if you're passing it
@@ -74,6 +75,13 @@ class RoleController extends Controller
         return redirect()->route('role.index')->with('success', 'Role updated successfully.');
     }
 
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
+        $role = Role::find($id);
+        if ($role == null) {
+            return redirect()->route('role.index')->with('error', 'role has been null.');
+        }
+        $role->delete();
+        return redirect()->route('role.index')->with('success', 'role deleted deleted successfully.');
     }
 }
