@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PermissitionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::get('role/{id}/edit', [RoleController::class, 'edit'])->name('role.edit');
     Route::post('role/{id}/update', [RoleController::class, 'update'])->name('role.update');
     Route::post('role/{id}/destroy', [RoleController::class, 'destroy'])->name('role.destroy');
+
+    // Product routes
+    Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
+    
 });
 
 require __DIR__ . '/auth.php';
