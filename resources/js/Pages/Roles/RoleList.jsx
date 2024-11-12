@@ -65,10 +65,10 @@ const RoleList = ({ auth, role }) => {
                     <tbody>
                         {
                             role?.map((item) => (
-                                <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
+                                <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB] h-10'>
                                     <td className='px-3 py-4'>{item.id}</td>
                                     <td className='px-3 py-4'>{item.name}</td>
-                                    <td className='px-3 py-4'>{item?.permissions?.map((permission) => <div key={permission.id}>{`${permission.name},`}</div>)}</td>
+                                    <td className='px-3 py-4 flex flex-wrap'>{item?.permissions?.map((permission) => <div key={permission.id}>{`${permission.name},`}</div>)}</td>
                                     <td className='px-3 py-4'>{new Date(item.created_at).toLocaleDateString('en-US', {
                                         year: 'numeric',
                                         month: 'long',

@@ -72,7 +72,7 @@ const RoleCreate = ({ auth, permissition }) => {
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
-                    <div className="flex justify-between items-center mt-3">
+                    <div className="flex justify-between items-center mt-3 flex-wrap">
                         {permissition.map((item) => (
                             <div key={item.id} className="flex items-center gap-1">
                                 <input

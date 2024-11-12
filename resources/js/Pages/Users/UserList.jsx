@@ -6,7 +6,7 @@ export function UserList({ auth, userData }) {
     const { data, setData, post, processing, success } = useForm({
         status: '',
     });
-    console.log(userData);
+    console.log(success);
 
     // const handleDelete = (id) => {
     //     if (confirm('Are you sure you want to delete this user?')) {
@@ -23,7 +23,7 @@ export function UserList({ auth, userData }) {
                     <div className='text-xl font-bold'>Product List</div>
                     <Link
                         className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
-                    // href={route('users.create')}
+                    href={route('users.create')}
                     >
                         Create New User
                     </Link>

@@ -35,9 +35,9 @@ class UserController extends Controller
      */
     public function create(): Response
     {
-        $roles = Role::pluck('name', 'name')->all();
-
-        return Inertia::render('Users/Create', [
+        $roles = Role::orderBy('name', 'ASC')->get();
+        // dd($roles);
+        return Inertia::render('Users/CreateUser', [
             'roles' => $roles
         ]);
     }
@@ -53,7 +53,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required',
             'roles' => 'required'
         ]);
 
@@ -62,8 +62,12 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+        $useData = User::latest()->get();
+        return Inertia::render('Users/UserList', [
+            'success' => 'User updated successfully',
+            'userData' => $useData,
+        ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
     /**
