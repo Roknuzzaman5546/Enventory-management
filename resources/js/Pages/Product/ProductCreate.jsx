@@ -28,7 +28,7 @@ const ProductCreate = ({ auth }) => {
                 });
             },
             onError: (errors) => {
-                console.log(errors)
+                // console.log(errors)
                 if (errors) {
                     Swal.fire({
                         title: 'Error!',

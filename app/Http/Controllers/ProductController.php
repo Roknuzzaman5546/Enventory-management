@@ -43,7 +43,7 @@ class ProductController extends Controller
             'status' => $request->status
         );
         DB::table('products')->insert($data);
-        return redirect()->route('product.index')->with('success', 'Permissions Updated successfully.');
+        return redirect()->route('product.index')->with('success', 'Product add successfully.');
     }
 
     /**
@@ -67,7 +67,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $product = Product::findOrFail($id);
         $product->status = $request->status;
         $product->save();

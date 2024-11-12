@@ -1,34 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react'
-import BlueButton from '@/Components/BlueButton';
+import { Head, useForm } from '@inertiajs/react';
 import SlateButton from '@/Components/SlateButton';
 import Swal from 'sweetalert2';
 
 const ProductList = ({ auth, products }) => {
-    const { post, processing } = useForm();
-
+    const [product, setProduct] = useState(null)
+    console.log(product);
+    const { data, setData, post, processing } = useForm({
+        status: '',
+    });
     const updateStatus = (productId, status) => {
-        post(route('product.update', productId), {
-            preserveScroll: true,
-            data: { status },
-            onSuccess: () => {
-                Swal.fire({
-                    icon: 'success',
-                    title: status === 'accepted' ? 'Accepted!' : 'Rejected!',
-                    text: `Product has been ${status}.`,
-                    timer: 1500,
-                    showConfirmButton: false,
-                });
-            },
-            onError: () => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Something went wrong.',
-                });
-            }
-        });
+        setData('status', status)
+        if (product == status) {
+            post(route('product.update', productId), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: status === 'accepted' ? 'Accepted!' : 'Rejected!',
+                        text: `Product has been ${status}.`,
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                },
+                onError: (errors) => {
+                    console.log("Error:", errors);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Something went wrong.',
+                    });
+                }
+            });
+        }
     };
 
     return (
@@ -47,7 +52,6 @@ const ProductList = ({ auth, products }) => {
                             <th className='px-3 py-4'>Status</th>
                             <th className='px-1 py-4'>Accept</th>
                             <th className='px-1 py-4'>Reject</th>
-                            <th className='px-1 py-4'>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,21 +62,30 @@ const ProductList = ({ auth, products }) => {
                                 <td className='px-3 py-4'>{item.quantity}</td>
                                 <td className='px-3 py-4'>{item.status}</td>
                                 <td className='px-1 py-3'
-                                    onClick={() => updateStatus(item.id, 'accepted')}
-                                    disabled={processing}
+                                    onClick={() => setProduct('accepted')}
                                 >
-                                    <SlateButton>
-                                        Accept
-                                    </SlateButton>
+                                    <p
+                                        onClick={() => updateStatus(item.id, 'accepted')}
+                                        disabled={processing}
+                                    >
+                                        <SlateButton
+                                        >
+                                            Accept
+                                        </SlateButton>
+                                    </p>
                                 </td>
                                 <td className='px-1 py-3'
-                                    onClick={() => updateStatus(item.id, 'rejected')}
-                                    disabled={processing}
+                                    onClick={() => setProduct('rejected')}  
                                 >
-                                    <SlateButton>Reject</SlateButton>
-                                </td>
-                                <td className='px-1 py-3'>
-                                    <SlateButton disabled={processing}>Delete</SlateButton>
+                                    <p
+                                        onClick={() => updateStatus(item.id, 'rejected')}
+                                        disabled={processing}
+                                    >
+                                        <SlateButton
+                                        >
+                                            Reject
+                                        </SlateButton>
+                                    </p>
                                 </td>
                             </tr>
                         ))}
