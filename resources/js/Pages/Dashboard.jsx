@@ -29,6 +29,12 @@ export default function Dashboard({ auth }) {
                                 Role
                             </BlueButton>
                         </div>
+                        
+                        <div>
+                            <BlueButton link={'sellProduct.create'}>
+                                Show all Product
+                            </BlueButton>
+                        </div>
                     </div>
                 </div>
             </div>

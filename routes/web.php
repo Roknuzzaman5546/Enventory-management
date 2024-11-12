@@ -4,6 +4,7 @@ use App\Http\Controllers\PermissitionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -60,6 +61,11 @@ Route::middleware('auth')->group(function () {
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     Route::post('product/{id}/update', [ProductController::class, 'update'])->name('product.update');
 
+    // Users routes
+    Route::get('users/index', [UserController::class, 'index'])->name('users.index');
+    // Route::get('product/create', [UserController::class, 'create'])->name('product.create');
+    // Route::post('product/store', [UserController::class, 'store'])->name('product.store');
+    // Route::post('product/{id}/update', [UserController::class, 'update'])->name('product.update');
 });
 
 require __DIR__ . '/auth.php';
