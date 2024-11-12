@@ -6,6 +6,7 @@ export function UserList({ auth, userData }) {
     const { data, setData, post, processing, success } = useForm({
         status: '',
     });
+    console.log(userData);
 
     // const handleDelete = (id) => {
     //     if (confirm('Are you sure you want to delete this user?')) {
@@ -46,21 +47,12 @@ export function UserList({ auth, userData }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {userData.map((user) => (
+                            {userData?.map((user) => (
                                 <tr key={user.id} className="hover:bg-gray-50">
                                     <td className="px-4 py-2 border-b text-center">{user.id}</td>
                                     <td className="px-4 py-2 border-b">{user.name}</td>
                                     <td className="px-4 py-2 border-b">{user.email}</td>
-                                    <td className="px-4 py-2 border-b">
-                                        {user.roles && user.roles.map((role, idx) => (
-                                            <span
-                                                key={idx}
-                                                className="inline-block bg-green-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                                            >
-                                                {role}
-                                            </span>
-                                        ))}
-                                    </td>
+                                    <td className='px-3 py-4'>{user?.roles?.map((role) => <div key={role.id}>{`${role.name},`}</div>)}</td>
                                     <td className="px-4 py-2 border-b space-x-2">
                                         <Link
                                             className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded text-sm"

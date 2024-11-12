@@ -27,7 +27,7 @@ const RoleEdit = ({ auth, permissions, hasPermissions, role }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('role.update', role.id), {      
+        post(route('role.update', role.id), {
             onSuccess: () => {
                 Swal.fire({
                     position: "top-end",

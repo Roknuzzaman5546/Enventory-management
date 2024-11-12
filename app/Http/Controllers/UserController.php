@@ -22,10 +22,9 @@ class UserController extends Controller
      */
     public function index(Request $request): Response
     {
-        $data = User::latest()->get();
+        $data = User::with('roles')->get();
         return Inertia::render('Users/UserList', [
             'userData' => $data,
-            'i' => ($request->input('page', 1) - 1) * 5
         ]);
     }
 
@@ -109,10 +108,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id): Response
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
+            'password' => 'required',
             'roles' => 'required'
         ]);
 
@@ -126,11 +126,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
-
         $user->assignRole($request->input('roles'));
-
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+        $data = User::latest()->get();
+        return Inertia::render('Users/UserList', [
+            'success' => 'User updated successfully',
+            'userData' => $data,
+        ]);
     }
 
     /**
@@ -143,7 +144,6 @@ class UserController extends Controller
     {
         User::findOrFail($id)->delete();
 
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        return redirect()->route('role.index')->with('success', 'role deleted deleted successfully.');
     }
 }

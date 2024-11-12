@@ -63,7 +63,6 @@ class RoleController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $request->all();
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id . '|min:3', // Ensure uniqueness except for the current role
             'permissions' => 'array', // Ensure permissions is an array if you're passing it
