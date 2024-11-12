@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 const ProductList = ({ auth, products }) => {
     const [product, setProduct] = useState(null)
-    console.log(product);
+    console.log(auth.user.roles[0].name == 'seller');
     const { data, setData, post, processing } = useForm({
         status: '',
     });
@@ -36,6 +36,9 @@ const ProductList = ({ auth, products }) => {
         }
     };
 
+
+    const acceptProducts = products.filter((item) => item.status == "accepted")
+
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Product | List" />
@@ -43,54 +46,87 @@ const ProductList = ({ auth, products }) => {
                 <div className='text-xl font-bold'>Product List</div>
             </div>
             <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl mt-5'>
-                <table className='w-full text-[#333333]'>
-                    <thead className='bg-white'>
-                        <tr className='text-left p-4 justify-between ml-5'>
-                            <th className='px-3 py-4'>Id</th>
-                            <th className='px-3 py-4'>Name</th>
-                            <th className='px-3 py-4'>Quantity</th>
-                            <th className='px-3 py-4'>Status</th>
-                            <th className='px-1 py-4'>Accept</th>
-                            <th className='px-1 py-4'>Reject</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products?.map((item) => (
-                            <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
-                                <td className='px-3 py-4'>{item.id}</td>
-                                <td className='px-3 py-4'>{item.name}</td>
-                                <td className='px-3 py-4'>{item.quantity}</td>
-                                <td className='px-3 py-4'>{item.status}</td>
-                                <td className='px-1 py-3'
-                                    onClick={() => setProduct('accepted')}
-                                >
-                                    <p
-                                        onClick={() => updateStatus(item.id, 'accepted')}
-                                        disabled={processing}
-                                    >
-                                        <SlateButton
+                {
+                    auth.user.roles[0].name == 'seller' ?
+                        <table className='w-full text-[#333333]'>
+                            <thead className='bg-white'>
+                                <tr className='text-left p-4 justify-between ml-5'>
+                                    <th className='px-3 py-4'>Id</th>
+                                    <th className='px-3 py-4'>Name</th>
+                                    <th className='px-3 py-4'>Quantity</th>
+                                    <th className='px-1 py-4'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products?.map((item) => (
+                                    <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
+                                        <td className='px-3 py-4'>{item.id}</td>
+                                        <td className='px-3 py-4'>{item.name}</td>
+                                        <td className='px-3 py-4'>{item.quantity}</td>
+                                        <td className='px-1 py-3'
+                                            onClick={() => setProduct('accepted')}
                                         >
-                                            Accept
-                                        </SlateButton>
-                                    </p>
-                                </td>
-                                <td className='px-1 py-3'
-                                    onClick={() => setProduct('rejected')}  
-                                >
-                                    <p
-                                        onClick={() => updateStatus(item.id, 'rejected')}
-                                        disabled={processing}
-                                    >
-                                        <SlateButton
+                                            <p>
+                                                <SlateButton
+                                                >
+                                                    sell
+                                                </SlateButton>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        :
+                        <table className='w-full text-[#333333]'>
+                            <thead className='bg-white'>
+                                <tr className='text-left p-4 justify-between ml-5'>
+                                    <th className='px-3 py-4'>Id</th>
+                                    <th className='px-3 py-4'>Name</th>
+                                    <th className='px-3 py-4'>Quantity</th>
+                                    <th className='px-3 py-4'>Status</th>
+                                    <th className='px-1 py-4'>Accept</th>
+                                    <th className='px-1 py-4'>Reject</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products?.map((item) => (
+                                    <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
+                                        <td className='px-3 py-4'>{item.id}</td>
+                                        <td className='px-3 py-4'>{item.name}</td>
+                                        <td className='px-3 py-4'>{item.quantity}</td>
+                                        <td className='px-3 py-4'>{item.status}</td>
+                                        <td className='px-1 py-3'
+                                            onClick={() => setProduct('accepted')}
                                         >
-                                            Reject
-                                        </SlateButton>
-                                    </p>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                            <p
+                                                onClick={() => updateStatus(item.id, 'accepted')}
+                                                disabled={processing}
+                                            >
+                                                <SlateButton
+                                                >
+                                                    Accept
+                                                </SlateButton>
+                                            </p>
+                                        </td>
+                                        <td className='px-1 py-3'
+                                            onClick={() => setProduct('rejected')}
+                                        >
+                                            <p
+                                                onClick={() => updateStatus(item.id, 'rejected')}
+                                                disabled={processing}
+                                            >
+                                                <SlateButton
+                                                >
+                                                    Reject
+                                                </SlateButton>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                }
             </div>
         </AuthenticatedLayout>
     );

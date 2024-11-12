@@ -10,6 +10,14 @@ use DB;
 
 class PermissitionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:view permission|create permission|edit permission|delete permission', ['only' => ['index', 'store']]);
+        $this->middleware('permission:create permission', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit permission', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete permission', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $permission = DB::table('permissions')->get();
