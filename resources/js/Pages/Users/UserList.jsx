@@ -63,14 +63,8 @@ export function UserList({ auth, userData }) {
                                     </td>
                                     <td className="px-4 py-2 border-b space-x-2">
                                         <Link
-                                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded text-sm"
-                                        // href={route('users.show', user.id)}
-                                        >
-                                            Show
-                                        </Link>
-                                        <Link
                                             className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded text-sm"
-                                        // href={route('users.edit', user.id)}
+                                        href={route('users.edit', user.id)}
                                         >
                                             Edit
                                         </Link>

@@ -9,6 +9,7 @@ export default function EditUser({ user, roles, userRole }) {
         confirmPassword: '',
         roles: userRole || [],
     });
+    console.log(roles, userRole);
 
     const handleSubmit = (e) => {
         e.preventDefault();

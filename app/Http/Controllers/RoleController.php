@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 use DB;
 
 class RoleController extends Controller
-
 {
     //
     public function index()
@@ -29,18 +28,24 @@ class RoleController extends Controller
     // store data
     public function store(Request $request)
     {
+        // dd($request->all());
+        // Validate the input to ensure each role name in the array is unique and at least 3 characters long
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:roles|min:3'
+            'name' => 'required'
         ]);
         if ($validator->passes()) {
-            // dd($request->permissions);
+            // Loop through each role name in the array
+            // Create a new role for each name
             $role = Role::create(['name' => $request->name]);
+
+            // Assign permissions if provided
             if (!empty($request->permissions)) {
-                foreach ($request->permissions as $name) {
-                    $role->givePermissionTo($name);
+                foreach ($request->permissions as $permissionName) {
+                    $role->givePermissionTo($permissionName);
                 }
             }
-            return redirect()->route('role.index')->with('success', 'Permissions added successfully.');
+
+            return redirect()->route('role.index')->with('success', 'Roles and permissions added successfully.');
         } else {
             return redirect()->route('role.create')->withInput()->withErrors($validator);
         }

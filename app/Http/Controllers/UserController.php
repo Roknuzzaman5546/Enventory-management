@@ -37,7 +37,7 @@ class UserController extends Controller
     public function create(): Response
     {
         $roles = Role::pluck('name', 'name')->all();
-        
+
         return Inertia::render('Users/Create', [
             'roles' => $roles
         ]);
@@ -64,8 +64,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-                         ->with('success', 'User created successfully');
+        return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
     /**
@@ -77,7 +76,7 @@ class UserController extends Controller
     public function show($id): Response
     {
         $user = User::findOrFail($id);
-        
+
         return Inertia::render('Users/Show', [
             'user' => $user
         ]);
@@ -92,10 +91,9 @@ class UserController extends Controller
     public function edit($id): Response
     {
         $user = User::findOrFail($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-
-        return Inertia::render('Users/Edit', [
+        $roles = Role::orderBy('name', 'ASC')->get();
+        $userRole = $user->roles->pluck('name');
+        return Inertia::render('Users/EditUser', [
             'user' => $user,
             'roles' => $roles,
             'userRole' => $userRole
@@ -132,7 +130,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-                         ->with('success', 'User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
     /**
@@ -144,8 +142,8 @@ class UserController extends Controller
     public function destroy($id): Response
     {
         User::findOrFail($id)->delete();
-        
+
         return redirect()->route('users.index')
-                         ->with('success', 'User deleted successfully');
+            ->with('success', 'User deleted successfully');
     }
 }
