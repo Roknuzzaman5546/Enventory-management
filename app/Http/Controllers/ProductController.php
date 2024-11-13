@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:view product|create product|edit product|delete product', ['only' => ['index', 'store']]);
+        $this->middleware('permission:view product', ['only' => ['index']]);
         $this->middleware('permission:create product', ['only' => ['create', 'store']]);
         $this->middleware('permission:edit product', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete product', ['only' => ['destroy']]);
@@ -64,10 +64,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.

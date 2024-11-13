@@ -72,7 +72,7 @@ const RoleEdit = ({ auth, permissions, hasPermissions, role }) => {
                         />
                         <InputError message={errors.name} className="mt-2" />
                     </div>
-                    <div className="flex justify-between items-center mt-3">
+                    <div className="flex justify-between items-center mt-3 flex-wrap">
                         {permissions.map((item) => (
                             <div key={item.id} className="flex items-center gap-1">
                                 <input
