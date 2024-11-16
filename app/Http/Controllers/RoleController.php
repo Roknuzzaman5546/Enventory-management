@@ -18,7 +18,7 @@ class RoleController extends Controller
         $this->middleware('permission:edit roles', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete roles', ['only' => ['destroy']]);
     }
-    //
+    
     public function index()
     {
         $role = Role::with('permissions')->get();
