@@ -36,7 +36,6 @@ const ProductList = ({ auth, products }) => {
         }
     };
 
-
     const acceptProducts = products.filter((item) => item.status == "accepted")
 
     return (
@@ -58,7 +57,7 @@ const ProductList = ({ auth, products }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products?.map((item) => (
+                                {acceptProducts?.map((item) => (
                                     <tr key={item.id} className='text-left p-4 border-dotted border-b border-[#919EAB]'>
                                         <td className='px-3 py-4'>{item.id}</td>
                                         <td className='px-3 py-4'>{item.name}</td>
