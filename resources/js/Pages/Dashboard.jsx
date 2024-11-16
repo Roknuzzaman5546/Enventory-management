@@ -2,11 +2,11 @@ import BlueButton from '@/Components/BlueButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
-    console.log(auth);
+export default function Dashboard({ userData }) {
+    // console.log(userData);
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={userData}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Home</h2>}
         >
             <Head title="Dashboard" />

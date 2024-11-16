@@ -16,10 +16,10 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:view permission|create permission|edit permission|delete permission', ['only' => ['index', 'store']]);
-        $this->middleware('permission:create permission', ['only' => ['create', 'store']]);
-        $this->middleware('permission:edit permission', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete permission', ['only' => ['destroy']]);
+        $this->middleware('permission:view user|create user|edit user|delete user', ['only' => ['index', 'store']]);
+        $this->middleware('permission:create user', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit user', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete user', ['only' => ['destroy']]);
     }
     public function index(Request $request): Response
     {

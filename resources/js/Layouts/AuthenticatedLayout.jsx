@@ -5,8 +5,8 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ auth, user, header, children }) {
-    console.log(user);
+export default function Authenticated({ user, header, children }) {
+    console.log(user.roles[0].name);
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -21,23 +21,39 @@ export default function Authenticated({ auth, user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                                <NavLink href={route('role.index')} active={route().current('role.index')}>
-                                    Role List
-                                </NavLink>
-                                <NavLink href={route('permission.index')} active={route().current('permission.index')}>
-                                    Permission List
-                                </NavLink>
-                                <NavLink href={route('product.index')} active={route().current('product.index')}>
-                                    Product List
-                                </NavLink>
-                                <NavLink href={route('users.index')} active={route().current('users.index')}>
-                                    User List
-                                </NavLink>
-                            </div>
+                            {
+                                (user.roles.some(role => role.name === 'super admin' || role.name === 'admin')) ? (
+                                    <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                        <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                            Dashboard
+                                        </NavLink>
+                                        <NavLink href={route('role.index')} active={route().current('role.index')}>
+                                            Role List
+                                        </NavLink>
+                                        <NavLink href={route('permission.index')} active={route().current('permission.index')}>
+                                            Permission List
+                                        </NavLink>
+                                        <NavLink href={route('product.index')} active={route().current('product.index')}>
+                                            Product List
+                                        </NavLink>
+                                        <NavLink href={route('users.index')} active={route().current('users.index')}>
+                                            User List
+                                        </NavLink>
+                                    </div>
+                                ) : (
+                                    <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                        <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                            Dashboard
+                                        </NavLink>
+                                        <NavLink href={route('product.index')} active={route().current('product.index')}>
+                                            Product List
+                                        </NavLink>
+                                        <NavLink href={route('users.index')} active={route().current('users.index')}>
+                                            User List
+                                        </NavLink>
+                                    </div>
+                                )
+                            }
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
