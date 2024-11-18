@@ -11,9 +11,9 @@ class ProductController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:view product', ['only' => ['index']]);
-        $this->middleware('permission:create product', ['only' => ['create', 'store']]);
-        $this->middleware('permission:edit product', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:add product|create product|edit product|delete product', ['only' => ['index','show']]);
+        $this->middleware('permission:create product', ['only' => ['create','store']]);
+        $this->middleware('permission:edit product', ['only' => ['edit','update']]);
         $this->middleware('permission:delete product', ['only' => ['destroy']]);
     }
     /**
@@ -76,13 +76,31 @@ class ProductController extends Controller
         ]);
     }
 
-    public function sellUpdate(Request $request, $id){
-        // dd($request->all());
+    public function sellUpdate(Request $request, $id)
+    {
+        // Validate incoming request data
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Find the product or fail if not found
         $product = Product::findOrFail($id);
-        $product->quantity = $product->quantity - $request->quantity;
+
+        // Check if there is enough stock to sell
+        if ($product->quantity < $request->quantity) {
+            return redirect()->back()
+                ->with('error', "Insufficient stock for" . $product->name);
+        }
+
+        // Reduce the product quantity
+        $product->quantity -= $request->quantity;
         $product->save();
-        return redirect()->route('product.index')->with('success', 'Product sold successfully.');
+
+        // Redirect back with a success message
+        return redirect()->route('product.index')
+            ->with('success', $request->quantity . ' units of ' . $product->name . ' sold successfully');
     }
+
 
     /**
      * Update the specified resource in storage.

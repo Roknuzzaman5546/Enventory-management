@@ -34,7 +34,8 @@ const ProductList = ({ auth, products }) => {
             });
         }
     };
-
+    const { props } = usePage();
+    const { success } = props;
     const acceptProducts = products.filter((item) => item.status == "accepted")
 
     return (
@@ -43,7 +44,14 @@ const ProductList = ({ auth, products }) => {
             <div className='flex justify-between items-center'>
                 <div className='text-xl font-bold'>Product List</div>
             </div>
-            <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl mt-5'>
+            {
+                success &&
+                <div className='text-center text-green-500 font-bold'>
+                    {success}
+                </div>
+            }
+
+            <div className='overflow-auto whitespace-nowrap card-shadow-2 border border-[#919EAB33] border-b rounded-xl mt-5 mb-10'>
                 {
                     auth?.user?.roles[0]?.name == 'seller' ?
                         <table className='w-full text-[#333333]'>

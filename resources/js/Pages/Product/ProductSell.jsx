@@ -8,27 +8,17 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 
-const ProductSell = ({ userData, product, success }) => {
+const ProductSell = ({ userData, product }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: product.name,
         quantity: '',
         status: product.status,
     });
-    const { props } = usePage(); // usePage hooks to access Inertia props
-    console.log(props);
 
     const submit = (e) => {
         e.preventDefault();
         post(route('product.sell.update', product.id), {
             onSuccess: () => {
-                route('product.index')
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Your Product is Update Successfully",
-                    showConfirmButton: false,
-                    timer: 2000
-                });
             },
             onError: (errors) => {
                 // console.log(errors)
