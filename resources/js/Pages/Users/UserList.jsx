@@ -18,7 +18,7 @@ export function UserList({ auth, userData }) {
         <AuthenticatedLayout user={auth.user}>
             <Head title="Product | List" />
 
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 pb-10">
                 <div className="flex justify-between items-center mb-4">
                     <div className='text-xl font-bold'>Product List</div>
                     <Link

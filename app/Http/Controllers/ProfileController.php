@@ -18,12 +18,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $user = auth()->user();
+        // Eager load roles and permissions
+        $user->load('roles', 'roles.permissions');
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'userData' => $user,
         ]);
     }
-
     /**
      * Update the user's profile information.
      */

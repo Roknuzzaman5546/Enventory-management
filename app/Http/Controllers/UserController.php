@@ -145,10 +145,10 @@ class UserController extends Controller
      * @param int $id
      * @return \Inertia\Response
      */
-    public function destroy($id): Response
-    {
-        User::findOrFail($id)->delete();
+    // public function destroy($id): Response
+    // {
+    //     User::findOrFail($id)->delete();
 
-        return redirect()->route('role.index')->with('success', 'role deleted deleted successfully.');
-    }
+    //     return redirect()->route('role.index')->with('success', 'role deleted deleted successfully.');
+    // }
 }
