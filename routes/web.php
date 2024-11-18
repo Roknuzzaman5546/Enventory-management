@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     // permission routes
     Route::get('/permission/create', [PermissitionController::class, 'create'])->name('permission.create');
@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     Route::post('product/{id}/update', [ProductController::class, 'update'])->name('product.update');
+    Route::get('product/{id}/sell', [ProductController::class, 'sell'])->name('product.sell');
+    Route::post('product/{id}/sell', [ProductController::class, 'sellUpdate'])->name('product.sell.update');
 
     // Users routes
     Route::get('users/index', [UserController::class, 'index'])->name('users.index');

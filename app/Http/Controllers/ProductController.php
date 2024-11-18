@@ -64,7 +64,25 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) {}
+    public function sell(string $id)
+    {
+        $user = auth()->user();
+        // Eager load roles and permissions
+        $user->load('roles', 'roles.permissions');
+        $product = Product::findOrFail($id);
+        return Inertia::render('Product/ProductSell', [
+            'product' => $product,
+            'userData' => $user
+        ]);
+    }
+
+    public function sellUpdate(Request $request, $id){
+        // dd($request->all());
+        $product = Product::findOrFail($id);
+        $product->quantity = $product->quantity - $request->quantity;
+        $product->save();
+        return redirect()->route('product.index')->with('success', 'Product sold successfully.');
+    }
 
     /**
      * Update the specified resource in storage.

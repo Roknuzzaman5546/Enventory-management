@@ -16,14 +16,14 @@ export default function Dashboard({ userData }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between items-center px-5">
                         <div className="p-6 text-gray-900">You're logged in!</div>
                         {
-                            (userData?.roles.some(role => role.name === 'seller' || role.name === 'consumer')) ? (
+                            (userData?.roles.some(role => role.name == 'seller' || role.name == 'consumer')) ? (
                                 <div>
-                                    <BlueButton link={'sellProduct.create'}>
+                                    <BlueButton link={'product.index'}>
                                         Show all Product
                                     </BlueButton>
                                 </div>
                             ) : (
-                                <div>
+                                <div className=' flex justify-between items-center gap-5'>
                                     <div>
                                         <BlueButton link={'product.create'}>
                                             Add Product
@@ -31,12 +31,12 @@ export default function Dashboard({ userData }) {
                                     </div>
                                     <div>
                                         <BlueButton link={'permission.create'}>
-                                            Permission
+                                           Create Permission
                                         </BlueButton>
                                     </div>
                                     <div>
                                         <BlueButton link={'role.create'}>
-                                            Role
+                                           Create Role
                                         </BlueButton>
                                     </div>
                                 </div>

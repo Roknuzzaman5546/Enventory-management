@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import SlateButton from '@/Components/SlateButton';
 import Swal from 'sweetalert2';
 
 const ProductList = ({ auth, products }) => {
     const [product, setProduct] = useState(null)
-    // console.log(auth.user.roles[0].name);
     const { data, setData, post, processing } = useForm({
         status: '',
     });
@@ -65,12 +64,12 @@ const ProductList = ({ auth, products }) => {
                                         <td className='px-1 py-3'
                                             onClick={() => setProduct('accepted')}
                                         >
-                                            <p>
+                                            <Link href={route('product.sell', item.id)}>
                                                 <SlateButton
                                                 >
                                                     sell
                                                 </SlateButton>
-                                            </p>
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))}
