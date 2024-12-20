@@ -18,7 +18,7 @@ const ProductList = ({ auth, products }) => {
                     Swal.fire({
                         icon: 'success',
                         title: status === 'accepted' ? 'Accepted!' : 'Rejected!',
-                        text: `Product has been ${status}.`,
+                        text: `Product has been ${status} .`,
                         timer: 1500,
                         showConfirmButton: false,
                     });
