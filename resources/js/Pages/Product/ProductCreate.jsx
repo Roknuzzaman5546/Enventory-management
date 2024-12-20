@@ -47,7 +47,7 @@ const ProductCreate = ({ auth }) => {
         >
             <Head title="Dashboard" />
             <div className=' flex justify-between items-center'>
-                <div className=' text-xl font-bold'>Product Add route</div>
+                <div className=' text-xl font-bold'>Product Add Page</div>
                 <div>
                     <BlueButton link={'permission.create'}>
                         Product
